@@ -16,7 +16,7 @@ int         ft_strlen(char *s)
     return (i);
 }
 
-char		*ft_join_n(char *s1, char *s2, size_t n)
+char		*ft_join_n(char *s1, char *s2, int n)
 {
 	int	i;
 	int	s1_len;
@@ -94,14 +94,21 @@ int     main(int ac, char **av)
     char    *s;
     int     fd;
 
-    fd = open(av[ac - 1],  O_RDONLY);
-    s = NULL;
-    while (get_next_line(fd, &s) == 1)
-    {
-        printf("%s\n", s);
-        free(s);
-    }
-    printf("%s\n", s);
-    free(s);
+	if (ac == 2)
+	{
+		fd = open(av[ac - 1],  O_RDONLY);
+		s = NULL;
+		
+		while (get_next_line(fd, &s) == 1)
+		{
+			printf("%s\n", s);
+			free(s);
+		}
+		// no newline in  the last line of file 
+		printf("%s", s);
+		free(s);
+	}
+	else
+		printf("Usage ./a.out file\n");
     return (0);
 }
