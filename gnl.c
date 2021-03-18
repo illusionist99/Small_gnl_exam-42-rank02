@@ -1,13 +1,8 @@
+#include "gnl.h"
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#define BUFFER_SIZE 99
-
-int         ft_strlen(char *s)
+int         		ft_strlen(char *s)
 {
-    int i;
+    int				i;
 
     i = 0;
     if (s)
@@ -16,11 +11,13 @@ int         ft_strlen(char *s)
     return (i);
 }
 
-char		*ft_join_n(char *s1, char *s2, int n)
+// ft_join_n create a string by appending (s1 [and frees it] + n char of s2)
+
+char				*ft_join_n(char *s1, char *s2, int n)
 {
-	int	i;
-	int	s1_len;
-	char	*appended;
+	int				i;
+	int				s1_len;
+	char			*appended;
 
 	i = 0;
 	s1_len = ft_strlen(s1);
@@ -42,16 +39,16 @@ char		*ft_join_n(char *s1, char *s2, int n)
 	return (appended);
 }
 
-int	get_next_line(char **line)
+int					get_next_line(int fd, char **line)
 {
-	int		i;
-	static char	*tmp;
-	char		*buff;
-	char		*tmp_free;
-	int		rd;
+	int				i;
+	static char		*tmp;
+	char			*buff;
+	char			*tmp_free;
+	int				rd;
 
-	*line = ft_join_n(NULL, NULL, 0);
-	if (tmp)
+	*line = ft_join_n(NULL, NULL, 0); // initialising line to empty string "" 
+	if (tmp) // checking our static char content
 	{
 		i = 0;
 		while (tmp[i] != '\0' && tmp[i] != '\n')
@@ -69,7 +66,7 @@ int	get_next_line(char **line)
 	}
 	if (!(buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
-	while ((rd = read(0, buff, BUFFER_SIZE)))
+	while ((rd = read(fd, buff, BUFFER_SIZE)))
 	{
 		if (rd < 0)
 			return (-1);
@@ -88,4 +85,3 @@ int	get_next_line(char **line)
 	free(buff);
 	return (0);
 }
-

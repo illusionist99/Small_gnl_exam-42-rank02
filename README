@@ -1,7 +1,10 @@
 # Compile the gnl.c file with :
-##gcc -Wall -Werror -Wextra gnl.c -o gnl
+
+##  gcc -Wall -Werror -Wextra main.c gnl.c -o gnl
 
 #Then Test With :
-## ./gnl file_name_path > test_file
-## diff file_name_path test_file
+
+##  ./gnl file_name_path > test_file
+
+##  diff file_name_path test_file
 
