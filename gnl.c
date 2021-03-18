@@ -50,7 +50,7 @@ int	get_next_line(int fd, char **line)
 	char		*tmp_free;
 	int		rd;
 
-	*line = NULL;
+	*line = ft_join_n(NULL, NULL, 0);
 	if (tmp)
 	{
 		i = 0;
