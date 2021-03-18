@@ -42,7 +42,7 @@ char		*ft_join_n(char *s1, char *s2, int n)
 	return (appended);
 }
 
-int	get_next_line(int fd, char **line)
+int	get_next_line(char **line)
 {
 	int		i;
 	static char	*tmp;
@@ -69,7 +69,7 @@ int	get_next_line(int fd, char **line)
 	}
 	if (!(buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
-	while ((rd = read(fd, buff, BUFFER_SIZE)))
+	while ((rd = read(0, buff, BUFFER_SIZE)))
 	{
 		if (rd < 0)
 			return (-1);
@@ -89,26 +89,3 @@ int	get_next_line(int fd, char **line)
 	return (0);
 }
 
-int     main(int ac, char **av)
-{
-    char    *s;
-    int     fd;
-
-	if (ac == 2)
-	{
-		fd = open(av[ac - 1],  O_RDONLY);
-		s = NULL;
-		
-		while (get_next_line(fd, &s) == 1)
-		{
-			printf("%s\n", s);
-			free(s);
-		}
-		// no newline in  the last line of file 
-		printf("%s", s);
-		free(s);
-	}
-	else
-		printf("Usage ./a.out file\n");
-    return (0);
-}
